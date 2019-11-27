@@ -18,6 +18,9 @@ public class Main {
         transaction.begin();
         Person p = new Person(123L, "Miss", "Xing");
         em.persist(p);
+
+        em.createQuery("from people");
+        em.createNativeQuery("select * from mycustomizedperson");
         transaction.commit();
         em.close();
     }
