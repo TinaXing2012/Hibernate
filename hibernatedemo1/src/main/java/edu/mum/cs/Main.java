@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Main {
 
@@ -16,7 +18,7 @@ public class Main {
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
-        Person p = new Person("Miss", "Xing");
+        Person p = new Person("Miss", "Xing", "test@gmail.com", new Date(), LocalDate.of(2019, 01, 01));
         em.persist(p);
 
         em.createQuery("from people");
