@@ -25,6 +25,9 @@ public class Person {
 
     private LocalDate boa;
 
+    @Transient
+    private int temp;
+
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
