@@ -16,7 +16,7 @@ public class Main {
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
-        Person p = new Person(123L, "Miss", "Xing");
+        Person p = new Person("Miss", "Xing");
         em.persist(p);
 
         em.createQuery("from people");
