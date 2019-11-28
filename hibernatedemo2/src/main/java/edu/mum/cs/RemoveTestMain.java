@@ -58,10 +58,14 @@ public class RemoveTestMain {
 //        Person p = em.getReference(Person.class, 1L);
 //        em.remove(p);
 
+        System.out.println("1..........");
         Book b = em.getReference(Book.class, "111-222");
+        System.out.println("2..........");
         em.remove(b);
+        System.out.println("3..........");
 
         em.getTransaction().commit();
+        System.out.println("4..........");
         em.close();
     }
 
@@ -85,6 +89,6 @@ public class RemoveTestMain {
 //        main.removeTransientObject();
 //        main.removeDetachedObject();
             main.removeManagedObject();
-
+        emf.close();
     }
 }
