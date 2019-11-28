@@ -29,10 +29,32 @@ public class FirstLevelCacheMain {
 
     }
 
+    private void retrieval(){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+//        Person p = new Person("Miss", "Xing");
+        Book book = new Book("111", "Hibernate");
+        System.out.println("1..........");
+        em.persist(book);
+        System.out.println("2..........");
+
+        Book book2 = em.find(Book.class, "111");
+        System.out.println("3.......... " + book2.getTitle());
+
+        em.getTransaction().commit();
+        System.out.println("4..........");
+        em.close();
+
+    }
+
+
+
 
     public static void main(String[] args) {
         FirstLevelCacheMain main = new FirstLevelCacheMain();
-        main.persist();
+//        main.persist();
+        main.retrieval();
         emf.close();
     }
 }
