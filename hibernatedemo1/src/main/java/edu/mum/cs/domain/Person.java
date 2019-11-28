@@ -8,9 +8,15 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "person_id")
     private Long id;
+
+    @Column(name = "first", length = 50)
     private String firstName;
     private String lastName;
+
+    @Column(unique = true, length = 250)
+    private String email;
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
