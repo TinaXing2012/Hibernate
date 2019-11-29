@@ -73,13 +73,35 @@ public class FirstLevelCacheMain {
     }
 
 
+    private void remove(){
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Person p = new Person("Miss", "Xing");
+        System.out.println("1..........");
+        em.persist(p);
+        System.out.println("2..........");
+        p.setFirstName("Tina");
+        System.out.println("3..........");
+        em.remove(p);
+        System.out.println("4..........");
+        boolean existing = em.contains(p);
+        System.out.println("5....."+ existing);
+
+        em.getTransaction().commit();
+        System.out.println("6..........");
+        em.close();
+    }
+
 
 
     public static void main(String[] args) {
         FirstLevelCacheMain main = new FirstLevelCacheMain();
 //        main.persist();
 //        main.retrieval();
-        main.update();
+//        main.update();
+        main.remove();
         emf.close();
     }
 }
