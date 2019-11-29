@@ -6,6 +6,7 @@ import edu.mum.cs.domain.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class FirstLevelCacheMain {
 
@@ -95,13 +96,37 @@ public class FirstLevelCacheMain {
     }
 
 
+    public void pushChangesToDB(){
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Book book = new Book("111", "Hibernate");
+        System.out.println("1..........");
+        em.persist(book);
+        System.out.println("2..........");
+
+        book.setTitle("Spring");
+        System.out.println("3..........");
+
+//        TypedQuery<Book> query = em.createQuery("from Book", Book.class);
+//        query.getResultList();
+
+        em.flush();
+        System.out.println("4..........");
+
+        em.getTransaction().commit();
+        System.out.println("6..........");
+    }
+
 
     public static void main(String[] args) {
         FirstLevelCacheMain main = new FirstLevelCacheMain();
 //        main.persist();
 //        main.retrieval();
 //        main.update();
-        main.remove();
+//        main.remove();
+        main.pushChangesToDB();
         emf.close();
     }
 }
