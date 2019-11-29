@@ -48,13 +48,38 @@ public class FirstLevelCacheMain {
 
     }
 
+    private void update(){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+//        Person p = new Person("Miss", "Xing");
+        Book book = new Book("111", "Hibernate");
+        System.out.println("1..........");
+//        em.persist(p);
+        em.persist(book);
+        System.out.println("2..........");
+
+//        p.setFirstName("Tina");
+        book.setTitle("Spring");
+        System.out.println("3..........");
+
+//        p.setLastName("YYYYYY");
+        System.out.println("4..........");
+
+        em.getTransaction().commit();
+        System.out.println("5..........");
+        em.close();
+
+    }
+
 
 
 
     public static void main(String[] args) {
         FirstLevelCacheMain main = new FirstLevelCacheMain();
 //        main.persist();
-        main.retrieval();
+//        main.retrieval();
+        main.update();
         emf.close();
     }
 }
