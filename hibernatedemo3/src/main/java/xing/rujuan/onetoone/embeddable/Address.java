@@ -1,4 +1,4 @@
-package xing.rujuan.onetoone.sharedpk;
+package xing.rujuan.onetoone.embeddable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,17 +7,11 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-//@Entity
+@Embeddable
 public class Address {
 
-    @Id
-    private Long id;
+  //no primary key generated in this embeddable entity
     private String street;
     private String zipCode;
-
-
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private Customer customer;
 
 }

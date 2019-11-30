@@ -1,4 +1,4 @@
-package xing.rujuan.onetoone.sharedpk;
+package xing.rujuan.onetoone.embeddable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-//@Entity
+@Entity
 public class Customer {
 
     @Id
@@ -16,7 +16,7 @@ public class Customer {
     public String firstName;
     public String lastName;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @Embedded
     private Address address;
+
 }
