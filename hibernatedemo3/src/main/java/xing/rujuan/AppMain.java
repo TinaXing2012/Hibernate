@@ -1,4 +1,4 @@
-package xing.rujuan.onetomany;
+package xing.rujuan;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
