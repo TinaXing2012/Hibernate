@@ -8,7 +8,7 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="packagesToScan" value="edu.mum.cs.domain"/>
+            <property name="packagesToScan" value="xing.rujuan.onetomany"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hibernatedemo?useSSL=false"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="root"/>

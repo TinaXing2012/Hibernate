@@ -1,4 +1,4 @@
-package edu.mum.cs.manytoone;
+package xing.rujuan.manytoone;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@Entity
+//@Entity
 public class Person {
 
     @Id

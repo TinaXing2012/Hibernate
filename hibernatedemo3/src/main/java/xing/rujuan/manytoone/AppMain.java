@@ -1,4 +1,4 @@
-package edu.mum.cs.manytoone;
+package xing.rujuan.manytoone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
