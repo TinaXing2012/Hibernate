@@ -19,9 +19,11 @@ public class Person {
     private String firstName;
     private String lastName;
 
-    @OneToMany
+//    @OneToMany
 //    @JoinTable(name = "person_addr", joinColumns = {@JoinColumn(name = "addr_id")}, inverseJoinColumns = {@JoinColumn(name="person_id")})
-    @JoinColumn(name = "p_id")
+//    @JoinColumn(name = "p_id")
+
+    @OneToMany(mappedBy = "person")
     private List<Address> addresses;
 
 }

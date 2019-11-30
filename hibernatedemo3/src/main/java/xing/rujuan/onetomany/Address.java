@@ -15,4 +15,7 @@ public class Address {
     private String street;
     private String zipCode;
 
+    @ManyToOne
+    private Person person;
+
 }
