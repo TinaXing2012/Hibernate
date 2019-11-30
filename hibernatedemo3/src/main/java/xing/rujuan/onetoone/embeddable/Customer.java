@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@Entity
+//@Entity
 public class Customer {
 
     @Id

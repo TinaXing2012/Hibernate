@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@Embeddable
+//@Embeddable
 public class Address {
 
   //no primary key generated in this embeddable entity
