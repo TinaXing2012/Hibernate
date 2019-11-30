@@ -1,26 +1,19 @@
-package xing.rujuan.onetoone.joincolumn;
+package xing.rujuan.onetoone.sharedpk;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Setter
 @Getter
-//@Entity
+@Entity
 public class Address {
 
     @Id
-//    @Column(name = "address_id")
     private Long id;
     private String street;
     private String zipCode;
-
-
-    @OneToOne
-    private Customer customer;
-
 }
