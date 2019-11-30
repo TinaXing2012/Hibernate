@@ -3,9 +3,7 @@ package xing.rujuan.onetoone.sharedpk;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -16,4 +14,10 @@ public class Address {
     private Long id;
     private String street;
     private String zipCode;
+
+
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Customer customer;
+
 }
