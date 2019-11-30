@@ -15,8 +15,8 @@ public class Customer {
     public String firstName;
     public String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "addr_id")
+    @OneToOne(mappedBy = "customer")
+//    @JoinColumn(name = "addr_id")
     private Address address;
 
 }
