@@ -16,6 +16,9 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity
+@NamedQueries({
+   @NamedQuery(name="Person.everyone", query = "from Person")
+})
 public class Person {
     @Id
     @GeneratedValue

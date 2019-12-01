@@ -36,10 +36,21 @@ public class App {
         em.close();
     }
 
+    private static void namedQuery(){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Person> query = em.createNamedQuery("Person.everyone", Person.class);
+        List<Person> personList = query.getResultList();
+        System.out.println(personList);
+        em.getTransaction().commit();
+        em.close();
+    }
+
 
     public static void main(String[] args) throws ParseException {
-        createQuery();
-
+//        createQuery();
+        namedQuery();
         emf.close();
     }
 
