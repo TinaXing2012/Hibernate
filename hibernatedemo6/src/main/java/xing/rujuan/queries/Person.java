@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"address"})
 @NoArgsConstructor
 @Entity
 @NamedQueries({
