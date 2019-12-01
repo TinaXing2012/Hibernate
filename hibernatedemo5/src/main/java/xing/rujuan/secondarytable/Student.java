@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity
+//@Entity
 @SecondaryTable(name = "person")
 public class Student {
 
