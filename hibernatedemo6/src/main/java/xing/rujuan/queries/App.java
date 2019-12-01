@@ -47,10 +47,42 @@ public class App {
         em.close();
     }
 
+    private static void polymorphicQuery(){
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Account checking = new CheckingAccount(100.00, 20.00);
+        em.persist(checking);
+
+        Account savings = new SavingsAccount(2000.00, 200.00);
+        em.persist(savings);
+
+        TypedQuery<Account> query = em.createQuery("from Account", Account.class);
+        List<Account> accounts = query.getResultList();
+        System.out.println(accounts);
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    private static void aliasesQuery() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Person> query = em.createQuery("from Person as p where p.id = 1", Person.class);
+        System.out.println(query.getResultList());
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
 
     public static void main(String[] args) throws ParseException {
 //        createQuery();
-        namedQuery();
+//        namedQuery();
+//        polymorphicQuery();
+        aliasesQuery();
         emf.close();
     }
 
