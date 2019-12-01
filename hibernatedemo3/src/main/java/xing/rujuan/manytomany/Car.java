@@ -10,7 +10,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@Entity
+//@Entity
 public class Car {
 
     @Id
