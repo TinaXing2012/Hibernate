@@ -77,12 +77,42 @@ public class App {
         em.close();
     }
 
+    private static void pagination() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Person> query = em.createQuery("frOM Person", Person.class);
+        query.setFirstResult(7);
+        query.setMaxResults(5);
+        List<Person> people = query.getResultList();
+        System.out.println(people.size());
+        System.out.println(people);
+
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    private static void orderBy() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+//       Query query = em.createQuery("from Person");
+        TypedQuery<Person> query = em.createQuery("from Person p order by p.lastName desc", Person.class);
+        List<Person> personList = query.getResultList();
+        System.out.println(personList);
+
+        em.getTransaction().commit();
+        em.close();
+    }
 
     public static void main(String[] args) throws ParseException {
 //        createQuery();
 //        namedQuery();
 //        polymorphicQuery();
-        aliasesQuery();
+//        aliasesQuery();
+//        pagination();
+        orderBy();
         emf.close();
     }
 
