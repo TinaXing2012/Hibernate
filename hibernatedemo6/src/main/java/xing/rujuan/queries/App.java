@@ -220,6 +220,40 @@ public class App {
         em.close();
     }
 
+    public static void joinFetch() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Person p1 = new Person("John", "Brown");
+        p1.addPhonenumber(new PhoneNumber("641-472-1234", "Home"));
+        p1.addPhonenumber(new PhoneNumber("641-919-5432", "Mobile"));
+        em.persist(p1);
+
+        Person p2 = new Person("Edward", "Towers");
+        p2.addPhonenumber(new PhoneNumber("641-233-9876", "Mobile"));
+        p2.addPhonenumber(new PhoneNumber("641-888-0987", "Home"));
+        em.persist(p2);
+
+        em.getTransaction().commit();
+        em.close();
+
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        System.out.println("1..................");
+        TypedQuery<Person> query2 = em.createQuery("from Person p join fetch p.numbers n where n.number like '641%'", Person.class);
+        List<Person> personList = query2.getResultList();
+
+
+        personList.stream().forEach(p -> {
+            System.out.println("2..................");
+            System.out.println(p.getNumbers());
+            System.out.println("3..................");
+        });
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
     public static void main(String[] args) throws ParseException {
 //        createQuery();
 //        namedQuery();
@@ -232,7 +266,8 @@ public class App {
 //        singleResult();
 //        specialAttributeId();
 //        join();
-        joinCollection();
+//        joinCollection();
+        joinFetch();
         emf.close();
     }
 
