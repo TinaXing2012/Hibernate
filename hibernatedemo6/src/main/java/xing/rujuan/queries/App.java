@@ -157,6 +157,34 @@ public class App {
         em.close();
     }
 
+    private static void specialAttributeId() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Person> query = em.createQuery("from Person p where p.id = 1", Person.class);
+
+        List<Person> p = query.getResultList();
+        System.out.println(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    private static void join() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+//        1. implicit join
+//        TypedQuery<Person> query = em.createQuery("from Person p where p.address.state = 'Iowa'", Person.class);
+
+//        2. explicit join
+        TypedQuery<Person> query = em.createQuery("select p from Person p join p.address addr where addr.state = 'Iowa'", Person.class);
+
+        List<Person> p = query.getResultList();
+        System.out.println(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
     public static void main(String[] args) throws ParseException {
 //        createQuery();
 //        namedQuery();
@@ -166,7 +194,9 @@ public class App {
 //        orderBy();
 //        whereClause();
 //        queryParameters();
-        singleResult();
+//        singleResult();
+//        specialAttributeId();
+        join();
         emf.close();
     }
 

@@ -1,7 +1,8 @@
 insert into Address value(null, 'Fairfield', 'Iowa', '1000 N 4th', '52557');
+insert into Address value(null, 'Washington', 'Des Monies', '200 S 5th', '72556');
 INSERT into Person values(null, 'John', 'Doe', 1);
 INSERT into Person values(null, 'James', 'Brown', 1);
-INSERT into Person values(null, 'Alice', 'Long', 1);
+INSERT into Person values(null, 'Alice', 'Long', 2);
 -- INSERT into Person values(null, 'John2', 'Doe2', 1);
 -- INSERT into Person values(null, 'James2', 'Brown2', 1);
 -- INSERT into Person values(null, 'Alice2', 'Long2', 1);
