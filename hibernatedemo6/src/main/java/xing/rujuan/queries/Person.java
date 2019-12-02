@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@ToString(exclude = {"address"})
+@ToString(exclude = {"address", "numbers"})
 @NoArgsConstructor
 @Entity
 @NamedQueries({
@@ -29,5 +29,18 @@ public class Person {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id")
+    private List<PhoneNumber> numbers = new ArrayList<>();
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void addPhonenumber(PhoneNumber phoneNumber) {
+        numbers.add(phoneNumber);
+    }
 
 }

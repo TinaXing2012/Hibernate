@@ -185,6 +185,41 @@ public class App {
         em.close();
     }
 
+    public static void joinCollection() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Person p1 = new Person("John", "Brown");
+        p1.addPhonenumber(new PhoneNumber("641-472-1234", "Home"));
+        p1.addPhonenumber(new PhoneNumber("641-919-5432", "Mobile"));
+        em.persist(p1);
+
+        Person p2 = new Person("Edward", "Towers");
+        p2.addPhonenumber(new PhoneNumber("641-233-9876", "Mobile"));
+        p2.addPhonenumber(new PhoneNumber("641-888-0987", "Home"));
+        em.persist(p2);
+
+//        TypedQuery<Object[]> query = em.createQuery("from Person p join p.numbers n where n.number like '641%'", Object[].class);
+//        List<Object[]> list = query.getResultList();
+//        for(Object[] obj : list){
+//            System.out.println((Person)obj[0]);
+//            System.out.println((PhoneNumber)obj[1]);
+//        }
+
+// 2. use select clause
+//        TypedQuery<Person> query2 = em.createQuery("select p from Person p join p.numbers n where n.number like '641%'", Person.class);
+//        List<Person> personList = query2.getResultList();
+//        System.out.println(personList);
+
+// 3. use DISTINCT keyword
+        TypedQuery<Person> query2 = em.createQuery("select distinct p from Person p join p.numbers n where n.number like '641%'", Person.class);
+        List<Person> personList = query2.getResultList();
+        System.out.println(personList);
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
     public static void main(String[] args) throws ParseException {
 //        createQuery();
 //        namedQuery();
@@ -196,7 +231,8 @@ public class App {
 //        queryParameters();
 //        singleResult();
 //        specialAttributeId();
-        join();
+//        join();
+        joinCollection();
         emf.close();
     }
 
