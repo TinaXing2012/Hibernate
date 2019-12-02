@@ -142,6 +142,21 @@ public class App {
         em.close();
     }
 
+    private static void singleResult() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Person> query = em.createQuery("from Person p where p.id = 123", Person.class);
+//        Person p = query.getSingleResult();
+//        System.out.println(p);
+        query.setMaxResults(1);
+        List<Person> p = query.getResultList();
+        System.out.println(p.size());
+//        System.out.println(p.get(0));
+        em.getTransaction().commit();
+        em.close();
+    }
+
     public static void main(String[] args) throws ParseException {
 //        createQuery();
 //        namedQuery();
@@ -150,7 +165,8 @@ public class App {
 //        pagination();
 //        orderBy();
 //        whereClause();
-        queryParameters();
+//        queryParameters();
+        singleResult();
         emf.close();
     }
 
