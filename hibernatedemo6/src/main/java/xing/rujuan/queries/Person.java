@@ -25,6 +25,7 @@ public class Person {
     private Long id;
     private String firstName;
     private String lastName;
+//    private String id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
