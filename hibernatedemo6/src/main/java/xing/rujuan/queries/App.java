@@ -36,7 +36,7 @@ public class App {
         em.close();
     }
 
-    private static void namedQuery(){
+    private static void namedQuery() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
@@ -47,7 +47,7 @@ public class App {
         em.close();
     }
 
-    private static void polymorphicQuery(){
+    private static void polymorphicQuery() {
 
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -106,13 +106,51 @@ public class App {
         em.close();
     }
 
+    private static void whereClause() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Person> query = em.createQuery("from Person p where p.lastName like '%n%'", Person.class);
+        List<Person> personList = query.getResultList();
+        System.out.println(personList);
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    private static void queryParameters() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        String firstName = "John"; // john' or delete from person
+        //NOT Good
+//        TypedQuery<Person> query = em.createQuery("from Person p where p.firstName = '"+firstName+"'", Person.class);
+
+        //1. Named Parameters
+//        TypedQuery<Person> query = em.createQuery("from Person p where p.firstName = :first", Person.class);
+//        query.setParameter("first", firstName);
+
+//        2. position
+        TypedQuery<Person> query = em.createQuery("from Person p where p.lastName = ?1 and  p.firstName = ?0", Person.class);
+        query.setParameter(0, firstName);
+        query.setParameter(1, "Doe");
+
+        List<Person> personList = query.getResultList();
+        System.out.println(personList);
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
     public static void main(String[] args) throws ParseException {
 //        createQuery();
 //        namedQuery();
 //        polymorphicQuery();
 //        aliasesQuery();
 //        pagination();
-        orderBy();
+//        orderBy();
+//        whereClause();
+        queryParameters();
         emf.close();
     }
 
