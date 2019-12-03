@@ -88,10 +88,48 @@ public class App {
         emf.close();
     }
 
+
+    private static void nPlusOneProblem() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        SalesRep sr1 = new SalesRep("John Willis");
+        SalesRep sr2 = new SalesRep("Mary Long");
+
+        sr1.addCustomer(new Customer("Frank", "Brown"));
+        sr1.addCustomer(new Customer("Jane", "Terrien"));
+        sr2.addCustomer(new Customer("John", "Doe"));
+        sr2.addCustomer(new Customer("Carol", "Reno"));
+
+        em.persist(sr1);
+        em.persist(sr2);
+        em.getTransaction().commit();
+        em.close();
+
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<SalesRep> query = em.createQuery("from SalesRep", SalesRep.class);
+
+        System.out.println("1..........");
+        List<SalesRep> list = query.getResultList();
+        System.out.println("2..........");
+        for(SalesRep salesRep : list){
+            System.out.println("3..........");
+            System.out.println(salesRep.getCustomers());
+            System.out.println("4..........");
+        }
+        System.out.println("5..........");
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
     public static void main(String[] args) {
-        populateCustomer();
+//        populateCustomer();
 //        lazyorEager();
 
+        nPlusOneProblem();
     }
 
 

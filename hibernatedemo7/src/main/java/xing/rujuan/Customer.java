@@ -30,8 +30,8 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Address address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Address address;
 
     //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -42,6 +42,9 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     private List<Movie> movies = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private SalesRep salesRep;
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
