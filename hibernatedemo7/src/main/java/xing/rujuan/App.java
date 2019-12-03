@@ -61,7 +61,7 @@ public class App {
         for(Customer c : customers){
             System.out.println("4.............");
 //            System.out.println(c.getAddress());
-            System.out.println(c.getBooks());
+            System.out.println(c.getBooks().size());
             System.out.println("5.............");
             System.out.println("");
         }

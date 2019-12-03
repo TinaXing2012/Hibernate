@@ -33,7 +33,9 @@ public class Customer {
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Address address;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private List<Book> books = new ArrayList<>();
 
     public Customer(String firstName, String lastName) {
@@ -41,7 +43,7 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public void addBook(Book book){
+    public void addBook(Book book) {
         books.add(book);
     }
 
