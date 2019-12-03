@@ -35,8 +35,13 @@ public class Customer {
 
     //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn
     @LazyCollection(LazyCollectionOption.EXTRA)
     private List<Book> books = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<Movie> movies = new ArrayList<>();
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -45,6 +50,10 @@ public class Customer {
 
     public void addBook(Book book) {
         books.add(book);
+    }
+
+    public boolean addMovie(Movie m) {
+        return movies.add(m);
     }
 
 }
