@@ -125,7 +125,7 @@ public class App {
 
     }
 
-    private static void entityGraph() {
+    private static void entityGraphAndJoinFetch() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
@@ -161,12 +161,15 @@ public class App {
         em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        TypedQuery<Customer> query = em.createQuery("from Customer", Customer.class);
-        EntityGraph<Customer> entityGraph = em.createEntityGraph(Customer.class);
-        entityGraph.addAttributeNodes("address");
-        entityGraph.addSubgraph("books").addAttributeNodes("author");
-
+//        1. Use entity graph
+//        TypedQuery<Customer> query = em.createQuery("from Customer", Customer.class);
+//        EntityGraph<Customer> entityGraph = em.createEntityGraph(Customer.class);
+//        entityGraph.addAttributeNodes("address");
+//        entityGraph.addSubgraph("books").addAttributeNodes("author");
 //        query.setHint("javax.persistence.fetchgraph", entityGraph);
+
+//        2. Join Fecth
+        TypedQuery<Customer> query = em.createQuery("from Customer c join fetch c.address join fetch c.books b join fetch b.author", Customer.class);
 
         System.out.println("1..................");
         List<Customer> customers = query.getResultList();
@@ -197,7 +200,7 @@ public class App {
 //        populateCustomer();
 //        lazyorEager();
 //        nPlusOneProblem();
-        entityGraph();
+        entityGraphAndJoinFetch();
     }
 
 
