@@ -65,7 +65,7 @@ public class App {
         List<Customer> customers = query.getResultList();
         System.out.println("3.............");
 
-        for(Customer c : customers){
+        for (Customer c : customers) {
             System.out.println("4.............");
 //            System.out.println(c.getAddress());
             System.out.println(c.getBooks().size());
@@ -78,7 +78,7 @@ public class App {
         em.close();
     }
 
-    private static void cartesianProduct_BAD(){
+    private static void cartesianProduct_BAD() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
@@ -114,7 +114,7 @@ public class App {
         System.out.println("1..........");
         List<SalesRep> list = query.getResultList();
         System.out.println("2..........");
-        for(SalesRep salesRep : list){
+        for (SalesRep salesRep : list) {
             System.out.println("3..........");
             System.out.println(salesRep.getCustomers());
             System.out.println("4..........");
@@ -125,11 +125,79 @@ public class App {
 
     }
 
+    private static void entityGraph() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Customer cust1 = new Customer("Frank", "Brown");
+        Customer cust2 = new Customer("Jane", "Terrien");
+        Customer cust3 = new Customer("John", "Doe");
+
+        cust1.setAddress(new Address("Fairfield", "Iowa"));
+        cust2.setAddress(new Address("Chicago", "Illinois"));
+        cust3.setAddress(new Address("Washington", "Iowa"));
+
+        cust1.addBook(
+                new Book("Harry Potter and the Deathly Hallows",
+                        new Author("J.K. Rowlings")));
+        cust1.addBook(
+                new Book("Unseen Academicals (Discworld)",
+                        new Author("Terry Pratchett")));
+        cust1.addBook(
+                new Book("The Color of Magic (Discworld)",
+                        new Author("Terry Pratchett")));
+        cust2.addBook(
+                new Book("Twilight (The Twilight Saga, Book1)",
+                        new Author("Stephenie Meyer")));
+
+        em.persist(cust1);
+        em.persist(cust2);
+        em.persist(cust3);
+
+        em.getTransaction().commit();
+        em.close();
+        System.out.println();
+        System.out.println();
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Customer> query = em.createQuery("from Customer", Customer.class);
+        EntityGraph<Customer> entityGraph = em.createEntityGraph(Customer.class);
+        entityGraph.addAttributeNodes("address");
+        entityGraph.addSubgraph("books").addAttributeNodes("author");
+
+//        query.setHint("javax.persistence.fetchgraph", entityGraph);
+
+        System.out.println("1..................");
+        List<Customer> customers = query.getResultList();
+        System.out.println("2..................");
+        for(Customer c : customers){
+            System.out.println("3..................");
+            System.out.println(c.getAddress().getCity());
+            System.out.println("4..................");
+            List<Book> books = c.getBooks();
+            System.out.println("5..................");
+            for(Book book : books){
+                System.out.println();
+                System.out.println("6..................");
+                System.out.println(book.getAuthor().getName());
+                System.out.println("7..................");
+                System.out.println();
+            }
+        }
+        System.out.println("8..................");
+
+
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+    }
+
     public static void main(String[] args) {
 //        populateCustomer();
 //        lazyorEager();
-
-        nPlusOneProblem();
+//        nPlusOneProblem();
+        entityGraph();
     }
 
 
