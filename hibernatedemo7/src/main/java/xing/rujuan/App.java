@@ -174,13 +174,13 @@ public class App {
         System.out.println("1..................");
         List<Customer> customers = query.getResultList();
         System.out.println("2..................");
-        for(Customer c : customers){
+        for (Customer c : customers) {
             System.out.println("3..................");
             System.out.println(c.getAddress().getCity());
             System.out.println("4..................");
             List<Book> books = c.getBooks();
             System.out.println("5..................");
-            for(Book book : books){
+            for (Book book : books) {
                 System.out.println();
                 System.out.println("6..................");
                 System.out.println(book.getAuthor().getName());
@@ -196,11 +196,65 @@ public class App {
         emf.close();
     }
 
+    private static void batchSizeORsubselect() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        SalesRep sr1 = new SalesRep("John Willis");
+        SalesRep sr2 = new SalesRep("Mary Long");
+        SalesRep sr3 = new SalesRep("John Willis");
+        SalesRep sr4 = new SalesRep("Mary Long");
+
+        sr1.addCustomer(new Customer("Frank", "Brown"));
+        sr1.addCustomer(new Customer("Jane", "Terrien"));
+        sr2.addCustomer(new Customer("John", "Doe"));
+        sr2.addCustomer(new Customer("Carol", "Reno"));
+        sr3.addCustomer(new Customer("Frank 2", "Brown"));
+        sr3.addCustomer(new Customer("Jane 2", "Terrien"));
+        sr4.addCustomer(new Customer("John 2", "Doe"));
+        sr4.addCustomer(new Customer("Carol 2", "Reno"));
+
+        em.persist(sr1);
+        em.persist(sr2);
+        em.persist(sr3);
+        em.persist(sr4);
+        em.getTransaction().commit();
+        em.close();
+
+        System.out.println();
+        System.out.println();
+
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<SalesRep> query = em.createQuery("from SalesRep", SalesRep.class);
+        System.out.println("1.......");
+        List<SalesRep> salesReps = query.getResultList();
+        System.out.println("2.......");
+//        for (SalesRep s : salesReps) {
+//            System.out.println("3.......");
+//            List<Customer> customers = s.getCustomers();
+//            System.out.println(customers.get(0).getFirstName());
+//            System.out.println("4.......");
+//        }
+
+        salesReps.get(0).getCustomers().get(0).getFirstName();
+
+        System.out.println("5.......");
+
+
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+    }
+
+
     public static void main(String[] args) {
 //        populateCustomer();
 //        lazyorEager();
 //        nPlusOneProblem();
-        entityGraphAndJoinFetch();
+//        entityGraphAndJoinFetch();
+        batchSizeORsubselect();
     }
 
 

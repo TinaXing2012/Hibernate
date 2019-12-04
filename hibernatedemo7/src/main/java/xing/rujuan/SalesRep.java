@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -22,7 +23,9 @@ public class SalesRep {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "salesRep", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "salesRep", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @BatchSize(size = 3)
+    @Fetch(FetchMode.SUBSELECT)
     private List<Customer> customers = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
